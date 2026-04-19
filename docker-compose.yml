@@ -8,19 +8,19 @@ services:
     environment:
       - WAHA_URL=${WAHA_URL}
       - WAHA_SESSION=${WAHA_SESSION:-default}
+      - WAHA_API_KEY=${WAHA_API_KEY:-}
       - COINGECKO_API_KEY=${COINGECKO_API_KEY}
-      - PORT=${PORT:-3000}
+      - PORT=3001
       - WHATSAPP_HOOK_HMAC_KEY=${WHATSAPP_HOOK_HMAC_KEY:-}
       - ALLOWED_CHATS=${ALLOWED_CHATS:-}
-      # WAHA Engine Configuration
-      - WHATSAPP_DEFAULT_ENGINE=${WHATSAPP_DEFAULT_ENGINE:-WEBJS}
-      - WHATSAPP_WEBJS_PUPPETER_ARGS=${WHATSAPP_WEBJS_PUPPETER_ARGS:-"--no-sandbox"}
+    ports:
+      - "3001:3001"
     volumes:
       - ./logs:/app/logs
     networks:
       - bot-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
       interval: 30s
       timeout: 10s
       retries: 3

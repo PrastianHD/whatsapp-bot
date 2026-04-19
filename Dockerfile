@@ -8,8 +8,9 @@ RUN npm ci --only=production
 COPY src/ ./src/
 COPY services/ ./services/
 COPY routes/ ./routes/
+COPY utils/ ./utils/
 
-RUN mkdir -p logs
+RUN mkdir -p logs && chown -R node:node logs
 
 USER node
 
